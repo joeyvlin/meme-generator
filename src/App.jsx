@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ImageSelector from './components/ImageSelector';
 import MemeCanvas from './components/MemeCanvas';
 import TextControls from './components/TextControls';
 import DownloadButton from './components/DownloadButton';
+import MemeFeed from './components/MemeFeed';
 import './styles/App.css';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('create'); // 'create' or 'browse'
   const [imageUrl, setImageUrl] = useState(null);
   const [textOverlays, setTextOverlays] = useState([]);
   const [selectedTextId, setSelectedTextId] = useState(null);
+  const canvasRef = useRef(null);
 
   const handleImageSelect = (url) => {
     setImageUrl(url);
-    // Optionally clear text overlays when changing image
-    // setTextOverlays([]);
-    // setSelectedTextId(null);
   };
 
   const handleAddText = () => {
@@ -73,40 +73,80 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Meme Generator</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1>Meme Generator</h1>
+          <nav style={{ display: 'flex', gap: '20px' }}>
+            <button
+              onClick={() => setCurrentPage('create')}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: currentPage === 'create' ? '#333' : '#999',
+                fontWeight: currentPage === 'create' ? 600 : 400,
+                cursor: 'pointer',
+                fontSize: '16px',
+                textDecoration: 'none'
+              }}
+            >
+              Create
+            </button>
+            <button
+              onClick={() => setCurrentPage('browse')}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: currentPage === 'browse' ? '#333' : '#999',
+                fontWeight: currentPage === 'browse' ? 600 : 400,
+                cursor: 'pointer',
+                fontSize: '16px',
+                textDecoration: 'none'
+              }}
+            >
+              Browse
+            </button>
+          </nav>
+        </div>
       </header>
 
       <main className="app-main">
-        <div className="left-panel">
-          <ImageSelector onImageSelect={handleImageSelect} />
-          
-          <div className="controls-section">
-            <TextControls
-              selectedText={selectedText}
-              onTextChange={handleTextChange}
-              onFontSizeChange={handleFontSizeChange}
-              onTextColorChange={handleTextColorChange}
-              onBorderWidthChange={handleBorderWidthChange}
-              onDelete={handleDeleteText}
-              onAddText={handleAddText}
-            />
-            
-            <DownloadButton 
-              imageUrl={imageUrl} 
-              textOverlays={textOverlays} 
-            />
-          </div>
-        </div>
+        {currentPage === 'create' ? (
+          <>
+            <div className="left-panel">
+              <ImageSelector onImageSelect={handleImageSelect} />
+              
+              <div className="controls-section">
+                <TextControls
+                  selectedText={selectedText}
+                  onTextChange={handleTextChange}
+                  onFontSizeChange={handleFontSizeChange}
+                  onTextColorChange={handleTextColorChange}
+                  onBorderWidthChange={handleBorderWidthChange}
+                  onDelete={handleDeleteText}
+                  onAddText={handleAddText}
+                />
+                
+                <DownloadButton 
+                  imageUrl={imageUrl} 
+                  textOverlays={textOverlays}
+                  canvasRef={canvasRef}
+                />
+              </div>
+            </div>
 
-        <div className="right-panel">
-          <MemeCanvas
-            imageUrl={imageUrl}
-            textOverlays={textOverlays}
-            onTextMove={handleTextMove}
-            onTextSelect={setSelectedTextId}
-            selectedTextId={selectedTextId}
-          />
-        </div>
+            <div className="right-panel">
+              <MemeCanvas
+                imageUrl={imageUrl}
+                textOverlays={textOverlays}
+                onTextMove={handleTextMove}
+                onTextSelect={setSelectedTextId}
+                selectedTextId={selectedTextId}
+                canvasRef={canvasRef}
+              />
+            </div>
+          </>
+        ) : (
+          <MemeFeed />
+        )}
       </main>
     </div>
   );

@@ -1,0 +1,26 @@
+.meme-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.meme-feed-loading,
+.meme-feed-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .meme-feed {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
+

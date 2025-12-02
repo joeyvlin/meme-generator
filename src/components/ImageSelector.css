@@ -34,6 +34,8 @@
 
 .tab-content {
   min-height: 200px;
+  max-height: 450px;
+  overflow-y: auto;
 }
 
 .upload-section {
@@ -64,6 +66,27 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.templates-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.templates-grid::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.templates-grid::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.templates-grid::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .template-item {

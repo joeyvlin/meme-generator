@@ -1,4 +1,11 @@
-.download-button {
+.download-post-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.download-button,
+.post-button {
   width: 100%;
   padding: 14px 24px;
   background: #333;
@@ -11,11 +18,26 @@
   transition: background 0.2s;
 }
 
-.download-button:hover {
+.download-button:hover,
+.post-button:hover {
   background: #555;
 }
 
-.download-button:active {
+.download-button:active,
+.post-button:active {
   background: #222;
+}
+
+.post-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.post-button.success {
+  background: #4caf50;
+}
+
+.post-button.success:hover {
+  background: #45a049;
 }
 

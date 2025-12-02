@@ -2,8 +2,9 @@ import { useRef, useState, useEffect } from 'react';
 import { useMemeCanvas } from '../hooks/useMemeCanvas';
 import './MemeCanvas.css';
 
-export default function MemeCanvas({ imageUrl, textOverlays, onTextMove, onTextSelect, selectedTextId }) {
-  const canvasRef = useRef(null);
+export default function MemeCanvas({ imageUrl, textOverlays, onTextMove, onTextSelect, selectedTextId, canvasRef: externalCanvasRef }) {
+  const internalCanvasRef = useRef(null);
+  const canvasRef = externalCanvasRef ? externalCanvasRef : internalCanvasRef;
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [dragTextId, setDragTextId] = useState(null);
