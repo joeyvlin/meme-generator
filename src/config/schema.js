@@ -10,13 +10,17 @@ export const schema = {
     userId: { type: 'string' },
     createdAt: { type: 'number' },
   },
-  trending_templates: {
-    templateId: { type: 'string' },
+  fetched_templates: {
     name: { type: 'string' },
-    url: { type: 'string' },
+    description: { type: 'string' },
     source: { type: 'string' },
-    metadata: { type: 'string' },
-    savedAt: { type: 'number' },
+    originalUrl: { type: 'string' }, // Original URL to detect duplicates
+    imageData: { type: 'string' }, // Base64 data URL
+    fileName: { type: 'string' },
+    filePath: { type: 'string' },
+    metadata: { type: 'string' }, // JSON stringified
+    fetchedAt: { type: 'number' },
+    votes: { type: 'number', defaultValue: 0 },
   },
 };
 
