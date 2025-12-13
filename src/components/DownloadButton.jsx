@@ -83,11 +83,28 @@ export default function DownloadButton({ imageUrl, textOverlays, canvasRef }) {
     setPostSuccess(false);
 
     try {
+      const canvas = canvasRef.current;
+      
+      // Check if canvas has content
+      if (canvas.width === 0 || canvas.height === 0) {
+        throw new Error('Canvas is empty. Please wait for the image to load.');
+      }
+      
+      // Wait a bit to ensure canvas is fully rendered
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
       // Convert canvas to base64
-      const imageData = await canvasToBase64(canvasRef.current);
+      const imageData = await canvasToBase64(canvas);
+      
+      if (!imageData) {
+        throw new Error('Failed to convert canvas to image');
+      }
       
       // Save to InstantDB
       const memeId = id();
+      console.log('Posting meme with ID:', memeId);
+      console.log('Image data length:', imageData.length);
+      
       await db.transact([
         db.tx.memes[memeId].update({
           imageData,
@@ -97,6 +114,7 @@ export default function DownloadButton({ imageUrl, textOverlays, canvasRef }) {
         }),
       ]);
 
+      console.log('Meme posted successfully');
       setPostSuccess(true);
       setTimeout(() => setPostSuccess(false), 3000);
     } catch (error) {

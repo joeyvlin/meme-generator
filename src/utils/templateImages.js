@@ -1,5 +1,10 @@
-// Predefined meme template images
-// These can be URLs to popular meme templates or local images
+// Predefined meme template images - all stored locally
+import drakePointingImg from '../assets/drake-pointing.jpg';
+import distractedBoyfriendImg from '../assets/distracted-boyfriend.jpg';
+import expandingBrainImg from '../assets/expanding-brain.jpg';
+import thisIsFineImg from '../assets/this-is-fine.jpg';
+import changeMyMindImg from '../assets/change-my-mind.jpg';
+import womanYellingCatImg from '../assets/woman-yelling-cat.jpg';
 import incredibleImg from '../assets/incredible.png';
 import superImg from '../assets/super.png';
 import tinybrainImg from '../assets/tinybrain.png';
@@ -10,32 +15,32 @@ export const templateImages = [
   {
     id: 1,
     name: 'Drake Pointing',
-    url: 'https://i.imgflip.com/30b1gx.jpg'
+    url: drakePointingImg
   },
   {
     id: 2,
     name: 'Distracted Boyfriend',
-    url: 'https://i.imgflip.com/1ur9b0.jpg'
+    url: distractedBoyfriendImg
   },
   {
     id: 3,
     name: 'Expanding Brain',
-    url: 'https://i.imgflip.com/1bgw.jpg'
+    url: expandingBrainImg
   },
   {
     id: 4,
     name: 'This Is Fine',
-    url: 'https://i.imgflip.com/26am.jpg'
+    url: thisIsFineImg
   },
   {
     id: 5,
     name: 'Change My Mind',
-    url: 'https://i.imgflip.com/24y43o.jpg'
+    url: changeMyMindImg
   },
   {
     id: 6,
     name: 'Woman Yelling at Cat',
-    url: 'https://i.imgflip.com/345v97.jpg'
+    url: womanYellingCatImg
   },
   {
     id: 7,

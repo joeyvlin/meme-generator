@@ -10,5 +10,13 @@ export const schema = {
     userId: { type: 'string' },
     createdAt: { type: 'number' },
   },
+  trending_templates: {
+    templateId: { type: 'string' },
+    name: { type: 'string' },
+    url: { type: 'string' },
+    source: { type: 'string' },
+    metadata: { type: 'string' },
+    savedAt: { type: 'number' },
+  },
 };
 
