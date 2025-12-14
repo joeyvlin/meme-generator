@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { auth } from './config/instantdb';
 import CreatePage from './pages/CreatePage';
 import BrowsePage from './pages/BrowsePage';
+import FetchPage from './pages/FetchPage';
 import './styles/App.css';
 
 function App() {
@@ -47,6 +48,17 @@ function App() {
               >
                 Browse
               </Link>
+              <Link
+                to="/fetch"
+                style={{
+                  color: location.pathname === '/fetch' ? '#333' : '#999',
+                  fontWeight: location.pathname === '/fetch' ? 600 : 400,
+                  textDecoration: 'none',
+                  fontSize: '16px'
+                }}
+              >
+                Fetch
+              </Link>
             </nav>
             {user && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -76,6 +88,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CreatePage />} />
           <Route path="/browse" element={<BrowsePage />} />
+          <Route path="/fetch" element={<FetchPage />} />
         </Routes>
       </main>
     </div>
