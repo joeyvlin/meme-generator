@@ -1,0 +1,101 @@
+.ai-caption-generator {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  background: white;
+  margin-bottom: 20px;
+}
+
+.ai-caption-generator .control-group {
+  margin-bottom: 20px;
+}
+
+.ai-caption-generator .control-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.ai-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.ai-input:focus {
+  outline: none;
+  border-color: #333;
+}
+
+.generate-button {
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #333;
+  color: white;
+}
+
+.generate-button:hover:not(:disabled) {
+  background: #555;
+}
+
+.generate-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: 10px;
+  padding: 8px;
+  background: #ffebee;
+  border-radius: 4px;
+}
+
+.captions-container {
+  margin-top: 20px;
+}
+
+.captions-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.captions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.caption-option {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  color: #333;
+}
+
+.caption-option:hover {
+  background: #f5f5f5;
+  border-color: #333;
+  transform: translateX(4px);
+}

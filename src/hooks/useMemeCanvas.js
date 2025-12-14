@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { drawWrappedText } from '../utils/textWrapping';
 
 export function useMemeCanvas(imageUrl, textOverlays, canvasRef) {
   const imageRef = useRef(null);
@@ -21,25 +22,17 @@ export function useMemeCanvas(imageUrl, textOverlays, canvasRef) {
 
       // Draw all text overlays
       textOverlays.forEach(overlay => {
-        ctx.save();
-        
-        // Set font
-        ctx.font = `${overlay.fontSize}px Impact, Arial, sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        // Draw black stroke (border)
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = overlay.borderWidth || 4;
-        ctx.lineJoin = 'round';
-        ctx.miterLimit = 2;
-        ctx.strokeText(overlay.text, overlay.x, overlay.y);
-
-        // Draw text fill with custom color
-        ctx.fillStyle = overlay.textColor || '#FFFFFF';
-        ctx.fillText(overlay.text, overlay.x, overlay.y);
-
-        ctx.restore();
+        const maxWidth = canvas.width * 0.85;
+        drawWrappedText(
+          ctx,
+          overlay.text,
+          overlay.x,
+          overlay.y,
+          maxWidth,
+          overlay.fontSize,
+          overlay.textColor,
+          overlay.borderWidth
+        );
       });
     };
 

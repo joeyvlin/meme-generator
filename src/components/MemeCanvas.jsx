@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useMemeCanvas } from '../hooks/useMemeCanvas';
+import { wrapText } from '../utils/textWrapping';
 import './MemeCanvas.css';
 
 export default function MemeCanvas({ imageUrl, textOverlays, onTextMove, onTextSelect, selectedTextId, canvasRef: externalCanvasRef }) {
@@ -24,7 +25,8 @@ export default function MemeCanvas({ imageUrl, textOverlays, onTextMove, onTextS
   };
 
   const findTextAtPosition = (x, y) => {
-    const ctx = canvasRef.current.getContext('2d');
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
     
     for (let i = textOverlays.length - 1; i >= 0; i--) {
       const overlay = textOverlays[i];
@@ -32,14 +34,23 @@ export default function MemeCanvas({ imageUrl, textOverlays, onTextMove, onTextS
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       
-      const metrics = ctx.measureText(overlay.text);
-      const textWidth = metrics.width;
-      const textHeight = overlay.fontSize;
+      const maxWidth = canvas.width * 0.85;
+      const lines = wrapText(ctx, overlay.text, maxWidth);
+      const lineHeight = overlay.fontSize * 1.2;
+      const totalHeight = lines.length * lineHeight;
       
-      const left = overlay.x - textWidth / 2;
-      const right = overlay.x + textWidth / 2;
-      const top = overlay.y - textHeight / 2;
-      const bottom = overlay.y + textHeight / 2;
+      let maxLineWidth = 0;
+      lines.forEach(line => {
+        const width = ctx.measureText(line).width;
+        if (width > maxLineWidth) {
+          maxLineWidth = width;
+        }
+      });
+      
+      const left = overlay.x - maxLineWidth / 2;
+      const right = overlay.x + maxLineWidth / 2;
+      const top = overlay.y - totalHeight / 2;
+      const bottom = overlay.y + totalHeight / 2;
       
       if (x >= left && x <= right && y >= top && y <= bottom) {
         return overlay.id;

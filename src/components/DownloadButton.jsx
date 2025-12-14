@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { id } from '@instantdb/react';
 import { db } from '../config/instantdb';
 import { canvasToBase64 } from '../utils/memeStorage';
+import { drawWrappedText } from '../utils/textWrapping';
 import './DownloadButton.css';
 
 export default function DownloadButton({ imageUrl, textOverlays, canvasRef }) {
@@ -32,24 +33,17 @@ export default function DownloadButton({ imageUrl, textOverlays, canvasRef }) {
 
       // Draw all text overlays
       textOverlays.forEach(overlay => {
-        tempCtx.save();
-        
-        tempCtx.font = `${overlay.fontSize}px Impact, Arial, sans-serif`;
-        tempCtx.textAlign = 'center';
-        tempCtx.textBaseline = 'middle';
-
-        // Draw black stroke
-        tempCtx.strokeStyle = '#000000';
-        tempCtx.lineWidth = overlay.borderWidth || 4;
-        tempCtx.lineJoin = 'round';
-        tempCtx.miterLimit = 2;
-        tempCtx.strokeText(overlay.text, overlay.x, overlay.y);
-
-        // Draw text fill with custom color
-        tempCtx.fillStyle = overlay.textColor || '#FFFFFF';
-        tempCtx.fillText(overlay.text, overlay.x, overlay.y);
-
-        tempCtx.restore();
+        const maxWidth = tempCanvas.width * 0.85;
+        drawWrappedText(
+          tempCtx,
+          overlay.text,
+          overlay.x,
+          overlay.y,
+          maxWidth,
+          overlay.fontSize,
+          overlay.textColor,
+          overlay.borderWidth
+        );
       });
 
       // Download the image

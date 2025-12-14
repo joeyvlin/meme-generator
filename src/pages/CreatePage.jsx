@@ -3,6 +3,7 @@ import ImageSelector from '../components/ImageSelector';
 import MemeCanvas from '../components/MemeCanvas';
 import TextControls from '../components/TextControls';
 import DownloadButton from '../components/DownloadButton';
+import AICaptionGenerator from '../components/AICaptionGenerator';
 
 export default function CreatePage() {
   const [imageUrl, setImageUrl] = useState(null);
@@ -65,6 +66,21 @@ export default function CreatePage() {
     }
   };
 
+  const handleCaptionSelect = (caption) => {
+    // Create a new text overlay with the selected caption
+    const newText = {
+      id: Date.now(),
+      text: caption,
+      x: imageUrl ? 400 : 300,
+      y: imageUrl ? 200 : 200,
+      fontSize: 40,
+      textColor: '#FFFFFF',
+      borderWidth: 4
+    };
+    setTextOverlays([...textOverlays, newText]);
+    setSelectedTextId(newText.id);
+  };
+
   const selectedText = textOverlays.find(overlay => overlay.id === selectedTextId);
 
   return (
@@ -73,6 +89,11 @@ export default function CreatePage() {
         <ImageSelector onImageSelect={handleImageSelect} />
         
         <div className="controls-section">
+          <AICaptionGenerator 
+            onCaptionSelect={handleCaptionSelect}
+            imageUrl={imageUrl}
+          />
+          
           <TextControls
             selectedText={selectedText}
             onTextChange={handleTextChange}
